@@ -5,3 +5,9 @@ The point here is to copy what he does, change, break and learn then continue on
 So the code itself will deviate from the tutorials to some degree. 
 
 Credit goes to Yan Chernikov (The Cherno)
+
+## Current Differences
+
+This is a list of the current major differences between my code and Youtubes videos.
+I am going to be using SDL instead of GLFW for creating a context for OpenGL to render in and user input.
+I will also be using CMake to be configure my development environment.
