@@ -4,7 +4,10 @@ project(ChernoOpenGL
 		VERSION 0.0.0
 		LANGUAGES CXX
 		DESCRIPTION "Youtube ChernoOpenGL")
-		
+
+set(GLEW_USE_STATIC_LIBS TRUE)
+add_compile_definitions(GLEW_STATIC)
+
 #Sets ups the module path to work with the a custom on so the defualt CMake modules work.
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules")
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}../../../glew-2.1.0/")
