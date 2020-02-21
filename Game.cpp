@@ -10,7 +10,11 @@ namespace gust
 /******************************************************************************/
 Game::Game(const std::string &title, int w, int h) : _running(true), 
 _width(w), _height(h), _title(title), 
-_ratio(static_cast<float>(_width) / static_cast<float>(_height))
+_ratio(static_cast<float>(_width) / static_cast<float>(_height)), 
+_position{ -0.5f, -0.5f,
+         0.0f,  0.5f,
+         0.5f, -0.5f, }, 
+    _buffer(0)
 {
     setup();
 }
@@ -21,6 +25,7 @@ Game::~Game()
 }
 
 /******************************************************************************/
+//! @brief Sets up everything needed to render graphics.
 void Game::setup() 
 {
     //Sets up OpenGL to make it use the core profile.
@@ -96,6 +101,16 @@ void Game::setup()
 }
 
 /******************************************************************************/
+//! @brief setups the state of OpenGL for rendering.
+void Game::openGLSetUp() 
+{
+    glGenBuffers(1, &_buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, _buffer);
+    glBufferData(GL_ARRAY_BUFFER, _position.size() * sizeof(float), _position.data(), GL_STATIC_DRAW);
+}
+
+/******************************************************************************/
+//! @brief handles events for our renderer in the main loop.
 void Game::handleEvents() 
 {
     while (SDL_PollEvent(&_input))
@@ -110,14 +125,19 @@ void Game::handleEvents()
 }
 
 /******************************************************************************/
+//! @brief draws graphics in the main loop.
 void Game::drawGraphics()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
     SDL_GL_SwapWindow(_window);
 }
 
 
 /******************************************************************************/
+//! @brief the main loop of the program.
 void Game::mainLoop() 
 {
     while (_running) 
