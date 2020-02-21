@@ -25,6 +25,6 @@ find_package(OpenGL REQUIRED)
 
 include_directories(${SDL2_INCLUDE_DIR} ${GLEW_INCLUDE_DIRS} ${IL_INCLUDE_DIR})
 
-add_executable(Practice main.cpp)
+add_executable(Practice main.cpp Game.h Game.cpp)
 
 target_link_libraries(Practice PRIVATE OpenGL::GL OpenGL::GLU SDL2::Core SDL2::Main GLEW::GLEW ${IL_LIBRARIES} ${ILU_LIBRARIES} ${ILUT_LIBRARIES})
