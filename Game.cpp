@@ -23,9 +23,7 @@ Game::~Game()
 /******************************************************************************/
 void Game::setup() 
 {
-    //This sets up what openGL version we are going to use, in this case it's 3.3 that why it say that.
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+    //Sets up OpenGL to make it use the core profile.
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
     SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
@@ -76,11 +74,8 @@ void Game::setup()
                     std::cerr << stderr << "You are have glew error :(" << std::endl;
                 }
 
-                //Make sure OpenGL 3.3 is supported
-                if (!GLEW_VERSION_3_2)
-                {
-                    printf("OpenGL 3.2 not supported!\n");
-                }
+                //Checking version of OpenGL we can use.
+                std::cout << glGetString(GL_VERSION) << std::endl;
 
                 ilInit();
                 iluInit();
