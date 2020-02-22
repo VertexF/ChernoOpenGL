@@ -13,6 +13,7 @@ public:
     Shader();
     ~Shader();
 
+    void parseShader(const std::string &filePath);
     void openGLSetUp();
 private:
 

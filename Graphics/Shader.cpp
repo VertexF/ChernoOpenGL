@@ -1,6 +1,7 @@
 #include "Shader.h"
 #include <GL/glew.h>
-#include <iostream> 
+#include <iostream>
+#include <fstream>
 
 namespace gust
 {
@@ -17,6 +18,14 @@ Shader::Shader() :
 Shader::~Shader()
 {
     glDeleteProgram(_programID);
+}
+
+/******************************************************************************/
+//! @brief finds the parses the file.
+void parseShader(const std::string& filePath) 
+{
+    std::ifstream 
+
 }
 
 /******************************************************************************/
