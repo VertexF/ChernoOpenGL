@@ -3,10 +3,13 @@
 
 #include <string>
 #include <array>
+#include <memory>
 #include "SDL.h"
 
 namespace gust
 {
+
+class Shader;
 
 class Game
 {
@@ -17,7 +20,7 @@ public:
     void mainLoop();
 private:
     void setup();
-    void openGLSetUp();
+
     void handleEvents();
     void drawGraphics();
 
@@ -31,8 +34,7 @@ private:
     std::string _title;
     float _ratio;
 
-    std::array<float, 6> _position;
-    unsigned int _buffer;
+    std::unique_ptr<Shader> _shader;
 };
 
 }

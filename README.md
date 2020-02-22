@@ -13,3 +13,7 @@ I am going to be using SDL instead of GLFW for creating a context for OpenGL to 
 I will also be using CMake to be configure my development environment.
 Everything is in the gust namespace.
 Abstracted the main loop and set up to a class.
+Abstracted the shader to it's own class.
+
+### Current OpenGL Video
+I am currently up to the: How I Deal with Shaders in OpenGL Video 8

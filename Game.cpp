@@ -3,7 +3,7 @@
 #include "GL/glew.h"
 #include "IL/il.h"
 #include "IL/ilu.h"
-
+#include "Shader.h"
 
 namespace gust
 {
@@ -11,12 +11,10 @@ namespace gust
 Game::Game(const std::string &title, int w, int h) : _running(true), 
 _width(w), _height(h), _title(title), 
 _ratio(static_cast<float>(_width) / static_cast<float>(_height)), 
-_position{ -0.5f, -0.5f,
-         0.0f,  0.5f,
-         0.5f, -0.5f, }, 
-    _buffer(0)
+_shader(std::make_unique<Shader>())
 {
     setup();
+    _shader->openGLSetUp();
 }
 
 /******************************************************************************/
@@ -101,18 +99,6 @@ void Game::setup()
 }
 
 /******************************************************************************/
-//! @brief setups the state of OpenGL for rendering.
-void Game::openGLSetUp() 
-{
-    glGenBuffers(1, &_buffer);
-    glBindBuffer(GL_ARRAY_BUFFER, _buffer);
-    glBufferData(GL_ARRAY_BUFFER, _position.size() * sizeof(float), _position.data(), GL_STATIC_DRAW);
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
-}
-
-/******************************************************************************/
 //! @brief handles events for our renderer in the main loop.
 void Game::handleEvents() 
 {
@@ -131,7 +117,7 @@ void Game::handleEvents()
 //! @brief draws graphics in the main loop.
 void Game::drawGraphics()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
     glDrawArrays(GL_TRIANGLES, 0, 3);
 
