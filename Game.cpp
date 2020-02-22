@@ -3,7 +3,7 @@
 #include "GL/glew.h"
 #include "IL/il.h"
 #include "IL/ilu.h"
-#include "Shader.h"
+#include "Graphics/Shader.h"
 
 namespace gust
 {

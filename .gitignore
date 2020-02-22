@@ -36,8 +36,6 @@
 *.depend
 
 # This skips all the linker stuff
-External/
-res/
 bin/
 
 #Main build ignore
