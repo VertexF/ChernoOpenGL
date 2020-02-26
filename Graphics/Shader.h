@@ -7,13 +7,27 @@
 namespace gust
 {
 
+struct ShaderSources 
+{
+    std::string vertexSource;
+    std::string fragementSource;
+};
+
 class Shader
 {
+private:
+    enum class ShaderType
+    {
+        NONE = -1,
+        VERTEX = 0,
+        FRAGMENT = 1
+    };
+
 public:
     Shader();
     ~Shader();
 
-    void parseShader(const std::string &filePath);
+    ShaderSources parseShader(const std::string &filePath);
     void openGLSetUp();
 private:
 

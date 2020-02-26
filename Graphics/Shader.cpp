@@ -2,6 +2,8 @@
 #include <GL/glew.h>
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <sstream>
 
 namespace gust
 {
@@ -22,10 +24,41 @@ Shader::~Shader()
 
 /******************************************************************************/
 //! @brief finds the parses the file.
-void parseShader(const std::string& filePath) 
+ShaderSources Shader::parseShader(const std::string& filePath)
 {
-    std::ifstream 
+    std::ifstream stream(filePath);
 
+    std::string line;
+    std::stringstream ss[2];
+    ShaderType type = ShaderType::NONE;
+
+    if (stream.is_open())
+    {
+        while (getline(stream, line))
+        {
+            if (line.find("#shader") != std::string::npos)
+            {
+                if (line.find("vertex") != std::string::npos)
+                {
+                    type = ShaderType::VERTEX;
+                }
+                else if (line.find("fragment") != std::string::npos)
+                {
+                    type = ShaderType::FRAGMENT;
+                }
+            }
+            else
+            {
+                ss[static_cast<int>(type)] << line << '\n';
+            }
+        }
+    }
+    else 
+    {
+        std::cout << "Could not open shader file." << std::endl;
+    }
+
+    return {ss[0].str(), ss[1].str()};
 }
 
 /******************************************************************************/
@@ -39,7 +72,11 @@ void Shader::openGLSetUp()
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 2, 0);
 
-    createShader(makeVertexShader(), makeFragementShader());
+    //createShader(makeVertexShader(), makeFragementShader());
+
+    ShaderSources sources = parseShader("res/Shader.shader");
+    createShader(sources.vertexSource, sources.fragementSource);
+
     glUseProgram(_programID);
 }
 
